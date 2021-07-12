@@ -28,7 +28,6 @@ export default {
 </script>
 <style lang='scss' scoped>
 .nav-content {
-  // width: 100%;
   .nav-bottom {
     min-width: 100%;
     display: flex;
@@ -80,10 +79,8 @@ export default {
     border-radius: 0.666667rem;
     z-index: -1;
   }
-
   .addMoney2 {
     display: block;
-    width: 0;
     border-left: 3.333333rem solid transparent;
     border-right: 3.333333rem solid transparent;
     border-top: 5rem solid #f7f8fe;
