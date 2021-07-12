@@ -45,7 +45,10 @@ body{
   padding: 0;
   box-sizing: border-box;
 }
-a {
+a{
+  text-decoration: none;
+}
+.font-a{
   text-decoration: none;
   color: #979797;
 }

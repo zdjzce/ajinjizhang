@@ -6,8 +6,7 @@ import store from './store'
 import TopNav from '@/components/TopNav.vue'
 import NavBottom from '@/components/NavBottom.vue'
 import IconFont from '@/components/IconFont.vue'
-import '@/assets/icons/iconfont/iconfont.css'
-import '@/assets/icons/iconfont/iconfont.js'
+
 Vue.config.productionTip = false
 
 Vue.component('TopNav', TopNav)

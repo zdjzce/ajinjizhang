@@ -3,6 +3,9 @@
     <div class="title">
       <slot />
     </div>
+    <div class="cancel">
+      <slot name="cancel-slot" />
+    </div>
   </div>
 </template>
 <script lang='ts'>
@@ -25,6 +28,12 @@ export default {}
     left: 50%;
     font-size: 1.111111rem;
     transform: translate(-50%, -50%);
+  }
+  .cancel {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 </style>

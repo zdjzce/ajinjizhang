@@ -1,18 +1,17 @@
 <template>
   <div class="nav-content">
     <nav class="nav-bottom">
-      <router-link to="/home" class="item">
+      <router-link to="/home" class="item font-a" active-class="selected">
         <icon-font icon="zhangdan" />
         概览
       </router-link>
       <span class="item"></span>
-      <router-link to="/statistics" class="item">
+      <router-link to="/statistics" class="item font-a" active-class="selected">
         <icon-font icon="tubiao" />
         图表
       </router-link>
     </nav>
-
-    <router-link to="/money" class="addMoney">
+    <router-link to="/money" class="addMoney font-a" active-class="selected">
       <span class="item-add">
         <icon-font icon="tianjiajiahaowubiankuang" />
       </span>
@@ -29,7 +28,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 .nav-content {
-  width: 100%;
+  // width: 100%;
   .nav-bottom {
     min-width: 100%;
     display: flex;
@@ -60,6 +59,7 @@ export default {
     transform: translateX(-50%);
     z-index: 3;
     .item-add {
+      color: white;
       position: absolute;
       display: block;
       top: 50%;
@@ -93,6 +93,9 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
+  }
+  .selected {
+    color: #f07590;
   }
 }
 </style>
