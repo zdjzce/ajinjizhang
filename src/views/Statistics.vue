@@ -3,6 +3,7 @@
     <top-nav>
       <span>图表</span>
     </top-nav>
+    <nav-bottom />
   </div>
 </template>
 

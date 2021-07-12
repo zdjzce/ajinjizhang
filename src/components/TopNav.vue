@@ -11,16 +11,20 @@ export default {}
 <style lang='scss' scoped>
 .header {
   // eslint-disable-next-line prettier/prettier
+  top: 0;
+  left: 0;
   min-width: 100%;
   background: linear-gradient(222.7deg, #ffb382 -6.37%, #f07590 84.84%);
   box-shadow: 0px 0.277778rem 0.833333rem rgba(209, 212, 226, 0.501217);
-  top: 0;
-  left: 0;
   color: white;
-  padding: 0.533333rem 10.533333rem;
+  height: 2.866667rem;
+  position: relative;
   .title {
-    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     font-size: 1.111111rem;
+    transform: translate(-50%, -50%);
   }
 }
 </style>

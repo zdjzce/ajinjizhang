@@ -3,6 +3,9 @@
     <top-nav>
       <span>记账</span>
     </top-nav>
+    <main>
+      <nav-bottom />
+    </main>
   </div>
 </template>
 
@@ -13,7 +16,4 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-.money {
-  text-align: center;
-}
 </style>

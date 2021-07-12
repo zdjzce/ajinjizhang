@@ -3,7 +3,10 @@
     <top-nav>
       <span>概览</span>
     </top-nav>
-    <p>我是Summary</p>
+    <main class="nav-wrap">
+      <div class="subject">我是Summary</div>
+      <nav-bottom />
+    </main>
   </div>
 </template>
 
