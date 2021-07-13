@@ -1,2 +1,12 @@
 $font:#979797;
 $linear:linear-gradient(222.7deg, #FFB382 -6.37%, #F07590 84.84%);
+%outershadow{
+  box-shadow: 0px .8rem .933333rem rgba(209, 212, 226, 0.4);
+}
+%clearFix {
+  &::after{
+    content:'';
+    display:block;
+    clear:both;
+  }
+}

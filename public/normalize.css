@@ -52,3 +52,6 @@ a{
   text-decoration: none;
   color: #979797;
 }
+li{
+  list-style-type: none;
+}
