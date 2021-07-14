@@ -8,28 +8,29 @@
         class="box"
         @click="addClass(index)"
         :class="{ iconclick: index === current }"
+        v-if="item.icon != 'tianjia'"
       >
         <icon-font :icon="item.icon" :class="item.color" />
         <span>{{ item.name }}</span>
+      </li>
+      <li v-for="(item1, key) in iconArray" :key="key + '1'" v-if="item1.icon === 'tianjia'">
+        <icon-font :icon="item1.icon" />
+        <span>{{ item1.name }}</span>
       </li>
     </ul>
   </div>
 </template>
 
+
 <script lang='ts'>
-export default {
-  name: 'boxcontent',
-  props: ['iconArray'],
-  data() {
-    return {
-      current: 0
-    }
-  },
-  methods: {
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    addClass(index: number) {
-      this.current = index
-    }
+import Vue from 'vue'
+import { Component, Prop } from 'vue-property-decorator'
+@Component
+export default class BoxContent extends Vue {
+  @Prop(Array) iconArray: [] | undefined
+  current = 0
+  addClass(index: number): number {
+    return (this.current = index)
   }
 }
 </script>

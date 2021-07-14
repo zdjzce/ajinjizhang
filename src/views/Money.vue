@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script>
 import BtnBox from '@/components/Money/BtnBox.vue'
 
 import Numbers from '@/components/Money/Numbers.vue'

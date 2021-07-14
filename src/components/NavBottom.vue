@@ -33,7 +33,7 @@ export default {
     display: flex;
     justify-content: center;
     position: absolute;
-    bottom: 0;
+    bottom: -5px;
     left: 50%;
     transform: translateX(-50%);
     box-shadow: 0px -2px 12px rgba(209, 212, 226, 0.3);

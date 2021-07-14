@@ -9,7 +9,8 @@ const iconArray: any = [
   { name: '看病', icon: 'kanbing', color: 'kanbing' },
   { name: '健身', icon: 'run', color: 'jianshen' },
   { name: '蔬菜', icon: 'shucai', color: 'huafei' },
-  { name: '娱乐', icon: 'yule', color: 'gouwu' }
+  { name: '娱乐', icon: 'yule', color: 'gouwu' },
+  { name: '添加', icon: 'tianjia' }
 ]
 
 export default iconArray
