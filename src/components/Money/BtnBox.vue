@@ -1,30 +1,45 @@
 <template>
   <div class="btn-box">
-    <types :inComeIsClick.sync="inComeIsClick" :expendIsClick.sync="expendIsClick" />
+    <types :value.sync="btnselected" />
     <div class="box-contnet">
-      <box-content :iconArray="iconArray1" v-if="expendIsClick"></box-content>
-      <box-content :iconArray="iconArray2" v-if="inComeIsClick"></box-content>
+      <box-content :iconArray="iconArray1" v-if="btnselected === '-'" @update:value="onUpdateTags"></box-content>
+      <box-content :iconArray="iconArray2" v-if="btnselected === '+'" @update:value="onUpdateTags"></box-content>
     </div>
   </div>
 </template>
 
-<script>
+<script lang ='ts'>
+import iconListModel from '@/models/iconListModel'
+import iconListModel2 from '@/models/iconListModel2'
 import BoxContent from '@/components/Money/BtnBox/BoxContent.vue'
-import iconArray1 from '@/components/Money/BtnBox/iconArray1'
-import iconArray2 from '@/components/Money/BtnBox/iconArray2'
 import Types from '@/components/Money/BtnBox/Types.vue'
-export default {
-  name: 'btnbox',
-  components: { BoxContent, Types },
-  data() {
-    return {
-      inComeIsClick: false,
-      expendIsClick: true,
-      iconArray1,
-      iconArray2
-    }
-  },
-  methods: {}
+
+interface icon {
+  name?: string
+  icon?: string
+  color?: string
+}
+const iconArray2 = iconListModel2.data
+const iconArray1: icon[] = iconListModel.fetch()
+import Vue from 'vue'
+import { Component, Watch } from 'vue-property-decorator'
+@Component({
+  components: { BoxContent, Types }
+})
+export default class BtnBox extends Vue {
+  btnselected = '-'
+  iconArray1 = iconArray1
+  iconArray2 = iconArray2
+  onUpdateTags(value: any): void {
+    this.$emit('Boxupdate-value', value)
+  }
+  @Watch('btnselected')
+  OnTypeUpdate(): void {
+    this.$emit('Typeupdate-value', this.btnselected)
+  }
+  mounted(): void {
+    iconListModel.save()
+  }
 }
 </script>
 <style lang='scss' scoped>

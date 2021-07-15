@@ -1,7 +1,7 @@
 <template>
   <div class="income-expend">
-    <button @click="expendClick" :class="{ btnclick: expendIsClick }">支出</button>
-    <button @click="inComeClick" :class="{ btnclick: inComeIsClick }">收入</button>
+    <button @click="selectType('-')" :class="{ btnclick: value === '-' }">支出</button>
+    <button @click="selectType('+')" :class="{ btnclick: value === '+' }">收入</button>
   </div>
 </template>
 
@@ -10,15 +10,12 @@ import Vue from 'vue'
 import { Component, Prop, Emit } from 'vue-property-decorator'
 @Component
 export default class Types extends Vue {
-  @Prop(Boolean) expendIsClick!: boolean
-  @Prop(Boolean) inComeIsClick!: boolean
-  inComeClick() {
-    this.$emit('update:inComeIsClick', true)
-    this.$emit('update:expendIsClick', false)
-  }
-  expendClick() {
-    this.$emit('update:expendIsClick', true)
-    this.$emit('update:inComeIsClick', false)
+  @Prop(String) value!: string
+  selectType(type: string) {
+    if (type !== '-' && type !== '+') {
+      throw new Error('type is unknow')
+    }
+    this.$emit('update:value', type)
   }
 }
 </script>

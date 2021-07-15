@@ -1,9 +1,7 @@
-
 <template>
   <div class="content">
     <ul class="box-flex">
       <li
-        class="items"
         v-for="(item, index) in iconArray"
         :key="index"
         @click="addClass(index)"
@@ -13,12 +11,6 @@
         <icon-font :icon="item.icon" :class="item.color" />
         <span>{{ item.name }}</span>
       </li>
-      <router-link class="items" to="/additem">
-        <li v-for="(item1, key) in iconArray" :key="key + '1'" v-if="item1.icon === 'tianjia'">
-          <icon-font :icon="item1.icon" />
-          <span> {{ item1.name }}</span>
-        </li>
-      </router-link>
     </ul>
   </div>
 </template>
@@ -33,14 +25,13 @@ interface icon {
   color?: string
 }
 @Component
-export default class BoxContent extends Vue {
+export default class ItemsContent extends Vue {
   @Prop(Array) iconArray!: []
   selected: icon = {}
   addClass(index: number) {
     this.selected = {}
     let select: string = this.iconArray[index]
     Object.assign(this.selected, select)
-    this.$emit('update:value', this.selected)
   }
 }
 </script>
@@ -50,12 +41,10 @@ export default class BoxContent extends Vue {
 .content {
   width: 100%;
   .box-flex {
-    width: 86vw;
-    // height: 30%;
     display: flex;
     flex-wrap: wrap;
 
-    .items {
+    li {
       width: 25%;
       text-align: center;
       margin-top: 0.866667rem;
