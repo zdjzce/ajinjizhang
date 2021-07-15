@@ -7,22 +7,37 @@
       </template>
     </top-nav>
     <div class="additem">
-      <items-content :iconArray="iconArray1" class="item-content"></items-content>
-      <button class="btn-add">完成</button>
+      <items-content :iconArray="iconArray1" class="item-content" @update-value="saveIcon"></items-content>
+      <button class="btn-add" @click="iconSelected(iconValue)">完成</button>
     </div>
   </div>
 </template>
-@/components/Money/BtnBox/iconListModel
+
 <script lang='ts'>
 import ItemsContent from '@/components/Additems/ItemsContent.vue'
-import iconArray1 from '@/models/iconListModel'
+import addItemModel from '@/components/Additems/addItemModel'
+import iconListModel from '@/models/iconListModel'
 import Vue from 'vue'
+
+const iconArray1 = addItemModel
 import { Component } from 'vue-property-decorator'
 @Component({
   components: { ItemsContent }
 })
 export default class Additems extends Vue {
   iconArray1 = iconArray1
+  iconValue = ''
+  saveIcon(value: any): void {
+    this.iconValue = value
+  }
+  iconSelected(value: any): void {
+    const message = iconListModel.create(value)
+    if (message === 'duplicated') {
+      window.alert('标签名重复了/或者没有选择标签')
+    } else if (message === 'success') {
+      window.alert('添加成功')
+    }
+  }
 }
 </script>
 <style lang='scss' scoped>

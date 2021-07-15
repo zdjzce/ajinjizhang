@@ -60,8 +60,12 @@ export default class Money extends Vue {
     this.record.amount = value
     // 如果直接push record 每次都会更改原来的地址 所以深拷贝保存的record
     const record2: Record = recordListModel.clone(this.record)
-    record2.createdAt = new Date()
-    this.recordList.push(record2)
+    if (!record2.tags.name) {
+      alert('支出或收入选项不能为空!')
+    } else {
+      record2.createdAt = new Date()
+      this.recordList.push(record2)
+    }
   }
 
   @Watch('recordList')

@@ -32,6 +32,7 @@ export default class ItemsContent extends Vue {
     this.selected = {}
     let select: string = this.iconArray[index]
     Object.assign(this.selected, select)
+    this.$emit('update-value', this.selected)
   }
 }
 </script>
@@ -40,6 +41,7 @@ export default class ItemsContent extends Vue {
 @import '~@/assets/style/iconcolor.scss';
 .content {
   width: 100%;
+  overflow: scroll;
   .box-flex {
     display: flex;
     flex-wrap: wrap;
@@ -47,7 +49,7 @@ export default class ItemsContent extends Vue {
     li {
       width: 25%;
       text-align: center;
-      margin-top: 0.866667rem;
+      margin-top: 1.266667rem;
       color: $font;
     }
   }
