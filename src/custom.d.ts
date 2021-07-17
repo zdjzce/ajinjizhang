@@ -3,10 +3,24 @@ interface icon {
   icon?: string
   color?: string
 }
-type Record = {
+type RecordItem = {
   tags: icon
   notes: string
   type: string
   amount: number
   createdAt?: Date
 }
+
+type IconListModel = {
+  data: icon[]
+  fetch: () => icon[]
+  save: () => void
+  create?: (list: icon) => 'success' | 'duplicated'
+}
+
+// type IconListModel = {
+//   data: icon[]
+//   fetch: () => icon[]
+//   save: () => void
+//   create?: (list: icon) => 'success' | 'duplicated'
+// }

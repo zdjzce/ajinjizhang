@@ -17,34 +17,22 @@
 import BtnBox from '@/components/Money/BtnBox.vue'
 import Numbers from '@/components/Money/Numbers.vue'
 import Notes from '@/components/Money/Notes.vue'
-import recordListModel from '@/models/recordListModel'
+// import store from '@/store/index2'
 import Vue from 'vue'
-import { Component, Watch } from 'vue-property-decorator'
-const recordList = recordListModel.fetch()
-interface icon {
-  name?: string
-  icon?: string
-  color?: string
-}
-type Record = {
-  tags: icon
-  notes: string
-  type: string
-  amount: number
-  createdAt?: Date
-}
+import { Component } from 'vue-property-decorator'
 @Component({
   components: { BtnBox, Numbers, Notes }
 })
 export default class Money extends Vue {
-  recordList: Record[] = recordList
-  record: Record = {
+  // eslint-disable-next-line no-undef
+  record: RecordItem = {
     tags: {},
     notes: '',
     type: '-',
     amount: 0
   }
-  OnBoxUpdate(value: any): void {
+  // eslint-disable-next-line no-undef
+  OnBoxUpdate(value: icon): void {
     this.record.tags = value
   }
 
@@ -55,22 +43,13 @@ export default class Money extends Vue {
   OnNoteUpdate(value: string): void {
     this.record.notes = value
   }
-
-  saveRecord(value: any): void {
-    this.record.amount = value
-    // 如果直接push record 每次都会更改原来的地址 所以深拷贝保存的record
-    const record2: Record = recordListModel.clone(this.record)
-    if (!record2.tags.name) {
-      alert('支出或收入选项不能为空!')
-    } else {
-      record2.createdAt = new Date()
-      this.recordList.push(record2)
-    }
+  created(): void {
+    this.$store.commit('fetchRecords')
   }
-
-  @Watch('recordList')
-  onRecordListChange() {
-    recordListModel.save(this.recordList)
+  // eslint-disable-next-line no-undef
+  saveRecord(value: number): void {
+    this.record.amount = value
+    this.$store.commit('createRecords', this.record)
   }
 }
 </script>

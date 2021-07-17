@@ -27,16 +27,12 @@
 <script lang='ts'>
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
-interface icon {
-  name?: string
-  icon?: string
-  color?: string
-}
 @Component
 export default class BoxContent extends Vue {
   @Prop(Array) iconArray!: []
+  // eslint-disable-next-line no-undef
   selected: icon = {}
-  addClass(index: number) {
+  addClass(index: number): void {
     this.selected = {}
     let select: string = this.iconArray[index]
     Object.assign(this.selected, select)

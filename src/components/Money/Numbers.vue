@@ -25,12 +25,12 @@
 
 <script lang='ts'>
 import Vue from 'vue'
-import { Component, Prop, Emit } from 'vue-property-decorator'
+import { Component } from 'vue-property-decorator'
 @Component
 export default class Numbers extends Vue {
   value = 0
   output = this.value.toString()
-  inputContent(event: MouseEvent) {
+  inputContent(event: MouseEvent): void {
     const button = event.target as HTMLButtonElement
     const input = button.textContent!
     if (this.output.length === 16) {

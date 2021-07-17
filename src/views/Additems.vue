@@ -16,7 +16,6 @@
 <script lang='ts'>
 import ItemsContent from '@/components/Additems/ItemsContent.vue'
 import addItemModel from '@/components/Additems/addItemModel'
-import iconListModel from '@/models/iconListModel'
 import Vue from 'vue'
 
 const iconArray1 = addItemModel
@@ -26,16 +25,26 @@ import { Component } from 'vue-property-decorator'
 })
 export default class Additems extends Vue {
   iconArray1 = iconArray1
-  iconValue = ''
-  saveIcon(value: any): void {
+  iconValue = {}
+  get taglist() {
+    return this.$store.state.tagList
+  }
+  // eslint-disable-next-line no-undef
+  saveIcon(value: icon): void {
     this.iconValue = value
   }
   iconSelected(value: any): void {
-    const message = iconListModel.create(value)
-    if (message === 'duplicated') {
-      window.alert('标签名重复了/或者没有选择标签')
-    } else if (message === 'success') {
-      window.alert('添加成功')
+    if (!value.name || !value.icon || !value.color) {
+      window.alert('没有选择标签')
+    } else {
+      const names = this.$store.state.tagList.map((item: { name: any }) => item.name)
+      if (names.indexOf(value.name) >= 0) {
+        window.alert('标签名重复了')
+      } else {
+        this.taglist.push(value)
+        this.$store.commit('saveTags')
+        window.alert('添加成功')
+      }
     }
   }
 }

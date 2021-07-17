@@ -9,18 +9,10 @@
 </template>
 
 <script lang ='ts'>
-import iconListModel from '@/models/iconListModel'
 import iconListModel2 from '@/models/iconListModel2'
 import BoxContent from '@/components/Money/BtnBox/BoxContent.vue'
 import Types from '@/components/Money/BtnBox/Types.vue'
-
-interface icon {
-  name?: string
-  icon?: string
-  color?: string
-}
 const iconArray2 = iconListModel2.data
-const iconArray1: icon[] = iconListModel.fetch()
 import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
 @Component({
@@ -28,8 +20,11 @@ import { Component, Watch } from 'vue-property-decorator'
 })
 export default class BtnBox extends Vue {
   btnselected = '-'
-  iconArray1 = iconArray1
   iconArray2 = iconArray2
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  get iconArray1() {
+    return this.$store.state.tagList
+  }
   onUpdateTags(value: any): void {
     this.$emit('Boxupdate-value', value)
   }
@@ -37,8 +32,8 @@ export default class BtnBox extends Vue {
   OnTypeUpdate(): void {
     this.$emit('Typeupdate-value', this.btnselected)
   }
-  mounted(): void {
-    iconListModel.save()
+  created(): void {
+    this.$store.commit('fetchTags')
   }
 }
 </script>

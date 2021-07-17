@@ -4,7 +4,6 @@
     <svg class="icon">
       <use :xlink:href="'#' + icon" />
     </svg>
-    <!-- <i class="iconfont icon-zhangdan" icon-sel></i> -->
   </div>
 </template>
 
