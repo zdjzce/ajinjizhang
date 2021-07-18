@@ -1,7 +1,7 @@
 <template>
   <div>
     <ol class="show-flex">
-      <li class="show-content">
+      <li class="show-content" v-for="(group, index) in groupedList" :key="index">
         <div class="amount">
           <span class="date">7月17日</span>
           <div class="amount-number">
@@ -10,13 +10,13 @@
           </div>
         </div>
         <ol class="item-content">
-          <li class="item">
-            <icon-font icon="yule" class="icon"></icon-font>
+          <li class="item" v-for="item in group.items" :key="item.id">
+            <icon-font :icon="item.tags.icon" class="icon"></icon-font>
             <div class="name-note">
-              <span>娱乐</span>
-              <span class="note">git push -u origin</span>
+              <span>{{ item.tags.name }}</span>
+              <span class="note">{{ item.notes }}</span>
             </div>
-            <span class="price">-188</span>
+            <span class="price">{{ item.type + item.amount }}</span>
           </li>
         </ol>
       </li>
@@ -28,7 +28,27 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 @Component
-export default class Types extends Vue {}
+export default class Types extends Vue {
+  get recordList() {
+    return (this.$store.state as RootState).recordList
+  }
+  beforeCreate(): void {
+    this.$store.commit('fetchRecords')
+  }
+  get groupedList() {
+    const { recordList } = this
+    // eslint-disable-next-line no-undef
+    type Items = RecordItem[]
+    type HashTableValue = { title: string; items: Items }
+    const hashTable: { [key: string]: HashTableValue } = {}
+    for (let i = 0; i < recordList.length; i++) {
+      const [date, time] = recordList[i].createdAt!.split('T')
+      hashTable[date] = hashTable[date] || { title: date, items: [] }
+      hashTable[date].items.push(recordList[i])
+    }
+    return hashTable
+  }
+}
 </script>
 
 <style lang='scss' scoped>
@@ -38,12 +58,13 @@ export default class Types extends Vue {}
   display: flex;
   flex-direction: cloumn;
   justify-content: center;
+  flex-wrap: wrap;
   .show-content {
     margin-top: 1.35rem;
     width: 90%;
     background: white;
     border-radius: 0.666667rem;
-    box-shadow: 0px 0.8rem 0.933333rem rgba(209, 212, 226, 0.4);
+
     .amount {
       width: 100%;
       margin: 0.8rem 0;

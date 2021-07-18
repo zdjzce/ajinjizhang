@@ -10,7 +10,7 @@ const store = new Vuex.Store({
   state: {
     recordList: [] as RecordItem[],
     tagList: iconArray
-  },
+  } as RootState,
   mutations: {
     fetchRecords(state): any {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[]
@@ -24,7 +24,7 @@ const store = new Vuex.Store({
         Message.error({ message: '请选择支出/收入下方的选项', center: true, duration: 2000, customClass: '.tips' })
       } else {
         record2.id = createId()
-        record2.createdAt = new Date()
+        record2.createdAt = new Date().toISOString()
         state.recordList.push(record2)
         store.commit('saveRecords')
       }
