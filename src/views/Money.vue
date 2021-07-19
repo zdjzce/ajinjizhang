@@ -39,6 +39,7 @@ export default class Money extends Vue {
   }
 
   OnTypeUpdate(value: string): void {
+    this.record.tags = {}
     this.record.type = value
   }
 

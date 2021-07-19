@@ -26,10 +26,11 @@
 
 <script lang='ts'>
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Watch } from 'vue-property-decorator'
 @Component
 export default class BoxContent extends Vue {
   @Prop(Array) iconArray!: []
+  @Prop(String) btnselected!: string
   // eslint-disable-next-line no-undef
   selected: icon = {}
   addClass(index: number): void {
@@ -37,6 +38,10 @@ export default class BoxContent extends Vue {
     let select: string = this.iconArray[index]
     Object.assign(this.selected, select)
     this.$emit('update:value', this.selected)
+  }
+  @Watch('btnselected')
+  typeChangeClearSelec(): void {
+    this.selected = {}
   }
 }
 </script>
