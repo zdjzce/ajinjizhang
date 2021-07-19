@@ -60,7 +60,7 @@ export default class Numbers extends Vue {
     this.output = '0'
   }
   ok(): void {
-    this.$emit('submit', this.output)
+    this.$emit('submit', Number(this.output))
     this.output = '0'
   }
 }

@@ -63,7 +63,6 @@ export default {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      // bottom: 0.666667rem;
     }
   }
   .addMoney::before {
@@ -77,6 +76,17 @@ export default {
     transform: rotateZ(45deg);
     border-radius: 0.666667rem;
     z-index: -1;
+  }
+  .addMoney2 {
+    display: block;
+    border-left: 3.333333rem solid transparent;
+    border-right: 3.333333rem solid transparent;
+    border-top: 5rem solid #f7f8fe;
+    position: absolute;
+    border-radius: 0.666667rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
   }
   .selected {
     color: #f07590;

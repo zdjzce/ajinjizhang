@@ -19,6 +19,7 @@ import Numbers from '@/components/Money/Numbers.vue'
 import Notes from '@/components/Money/Notes.vue'
 // import store from '@/store/index2'
 import Vue from 'vue'
+import { Message } from 'element-ui'
 import { Component } from 'vue-property-decorator'
 @Component({
   components: { BtnBox, Numbers, Notes }
