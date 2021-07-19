@@ -13,10 +13,9 @@
     </nav>
     <router-link to="/money" class="addMoney font-a" active-class="selected">
       <span class="item-add">
-        <icon-font icon="tianjiajiahaowubiankuang" />
+        <icon-font icon="tianjiajiahaowubiankuang" class="icon" />
       </span>
     </router-link>
-    <span class="addMoney2"></span>
   </div>
 </template>
 
@@ -51,9 +50,9 @@ export default {
   .addMoney {
     display: block;
     position: absolute;
-    bottom: 0.666667rem;
-    width: 4rem;
-    height: 4rem;
+    bottom: 0.5rem;
+    width: 3.3rem;
+    height: 3.3rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 3;
@@ -64,13 +63,12 @@ export default {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      bottom: 0.666667rem;
     }
   }
   .addMoney::before {
     content: '';
-    width: 4rem;
-    height: 4rem;
+    width: 3.3rem;
+    height: 3.3rem;
     display: block;
     position: absolute;
     background: linear-gradient(222.7deg, #ffb382 -6.37%, #f07590 84.84%);
@@ -86,7 +84,6 @@ export default {
     border-top: 5rem solid #f7f8fe;
     position: absolute;
     border-radius: 0.666667rem;
-    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
