@@ -1,12 +1,13 @@
 <template>
   <div>
-    <ol class="show-flex">
+    <noting-for-create v-if="recordList.length === 0"></noting-for-create>
+    <ol class="show-flex" v-else>
       <li class="show-content" v-for="(group, index) in groupedList" :key="index">
         <div class="amount">
-          <span class="date">{{ beautify(groupedList[index].title) }}</span>
+          <span class="date">{{ beautify(groupedList[index].title) + '' }}</span>
           <div class="amount-number">
-            <span>{{ '-' + inSumAndOutSum(index, '-') }}</span>
             <span>{{ '+' + inSumAndOutSum(index, '+') }}</span>
+            <span>{{ '-' + inSumAndOutSum(index, '-') }}</span>
           </div>
         </div>
         <ol class="item-content">
@@ -29,7 +30,10 @@ import Vue from 'vue'
 import dayjs from 'dayjs'
 import { Component } from 'vue-property-decorator'
 import clone from '@/lib/clone'
-@Component
+import NotingForCreate from '@/components/Home/NotingForCreate.vue'
+@Component({
+  components: { NotingForCreate }
+})
 export default class Types extends Vue {
   // eslint-disable-next-line no-undef
   get recordList(): RecordItem[] {
@@ -43,6 +47,9 @@ export default class Types extends Vue {
     const newList = ListClone.sort((a, b) => {
       return dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
     })
+    if (newList.length === 0) {
+      return []
+    }
     const result = [{ title: dayjs(newList[0].createdAt).format(), items: [newList[0]] }]
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i]
@@ -62,18 +69,20 @@ export default class Types extends Vue {
     return Sum || 0
   }
   beautify(string: string): string {
+    const ChineseDay = ['日', '一', '二', '三', '四', '五', '六']
     const day = dayjs(string)
+    const WeekDay = '周' + ChineseDay[day.get('day')]
     const now = dayjs()
     if (day.isSame(now, 'day')) {
-      return '今天'
+      return '今天 ' + WeekDay
     } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
-      return '昨天'
+      return '昨天 ' + WeekDay
     } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
-      return '前天'
+      return '前天 ' + WeekDay
     } else if (day.isSame(now, 'year')) {
-      return day.format('M月D日')
+      return day.format('M月D日 ') + WeekDay
     } else {
-      return day.format('YYYY年M月D日')
+      return day.format('YYYY年M月D日 ') + WeekDay
     }
   }
 }

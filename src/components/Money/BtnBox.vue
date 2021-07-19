@@ -2,8 +2,18 @@
   <div class="btn-box">
     <types :value.sync="btnselected" />
     <div class="box-contnet">
-      <box-content :iconArray="iconArray1" v-if="btnselected === '-'" @update:value="onUpdateTags"></box-content>
-      <box-content :iconArray="iconArray2" v-if="btnselected === '+'" @update:value="onUpdateTags"></box-content>
+      <box-content
+        :iconArray="iconArray1"
+        v-if="btnselected === '-'"
+        @update:value="onUpdateTags"
+        :btnselected="btnselected"
+      ></box-content>
+      <box-content
+        :iconArray="iconArray2"
+        v-if="btnselected === '+'"
+        @update:value="onUpdateTags"
+        :btnselected="btnselected"
+      ></box-content>
     </div>
   </div>
 </template>
