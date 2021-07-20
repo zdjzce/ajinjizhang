@@ -18,7 +18,7 @@
 import BtnBox from '@/components/Money/BtnBox.vue'
 import Numbers from '@/components/Money/Numbers.vue'
 import Notes from '@/components/Money/Notes.vue'
-import Calendar from '@/components/Calendar.vue'
+import Calendar from '@/components/Money/Calendar.vue'
 import dayjs from 'dayjs'
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'

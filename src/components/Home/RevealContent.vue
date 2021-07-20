@@ -43,7 +43,6 @@ export default class Types extends Vue {
   get recordList(): RecordItem[] {
     return (this.$store.state as RootState).recordList
   }
-
   beforeCreate(): void {
     this.$store.commit('fetchRecords')
   }
@@ -55,7 +54,7 @@ export default class Types extends Vue {
     if (newList.length === 0) {
       return []
     }
-    const result = [{ title: dayjs(newList[0].createdAt).format(), items: [newList[0]] }]
+    const result = [{ title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]] }]
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i]
       const last = result[result.length - 1]
@@ -67,36 +66,28 @@ export default class Types extends Vue {
     }
     return result
   }
-  get groupYearMounth() {
-    /* {
-      yearmounth:[{title , items[]}]
-      yearmounth:[{title , items[]}]
-      }*/
+  get groupYearMounth(): any {
+    type group = {
+      [key: string]: any
+    }
+    let result = {} as group
     const groupList = clone(this.groupedList)
-    const headYearMounth = dayjs(groupList[0].title).format('YYYY-MM')
-    const resultYearMounth = {
-      [headYearMounth]: groupList.filter((a) => {
-        return dayjs(a.title).format('YYYY-MM') === headYearMounth
+    if (groupList.length === 0) {
+      return []
+    }
+    for (let i = 0; i < groupList.length; i++) {
+      let YearMounth = dayjs(groupList[i].title).format('YYYY-MM')
+      result[YearMounth] = groupList.filter((a) => {
+        return dayjs(a.title).format('YYYY-MM') === YearMounth
       })
     }
-    for (let i = 1; i < groupList.length; i++) {
-      const current = groupList[i]
-      const kyes = Object.keys(resultYearMounth)
-      const lastItem = kyes[kyes.length - 1]
-      if (dayjs(current.title).format('YYYY-MM') === lastItem) {
-        resultYearMounth[lastItem].push(current)
-      } else {
-        const newItem = dayjs(current.title).format('YYYY-MM')
-        resultYearMounth[newItem] = []
-        resultYearMounth[newItem].push(current)
-      }
-    }
-    return resultYearMounth
+    return result
   }
+
   inSumAndOutSum(index: number, type: string): number {
     const items = this.list[index].items
-    const SumList = items.filter((a) => a.amount && a.type === type)
-    const Sum: number = eval(SumList.map((a) => a.amount).join('+'))
+    const SumList = items.filter((a: any) => a.amount && a.type === type)
+    const Sum: number = eval(SumList.map((a: any) => a.amount).join('+'))
     return Sum || 0
   }
   beautify(string: string): string {
@@ -122,4 +113,3 @@ export default class Types extends Vue {
 <style lang='scss' scoped>
 @import '/RevealStyle.scss';
 </style>
-

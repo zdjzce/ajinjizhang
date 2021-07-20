@@ -35,6 +35,9 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
+//   "compilerOptions": {
+//     "suppressImplicitAnyIndexErrors": true,
+// },
   "exclude": [
     "node_modules"
   ]

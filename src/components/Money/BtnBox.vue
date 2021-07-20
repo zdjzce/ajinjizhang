@@ -52,7 +52,7 @@ export default class BtnBox extends Vue {
 
 .btn-box {
   margin-left: 7.5%;
-  margin-top: 0.666667rem;
+  margin-top: 0.366667rem;
   border-radius: 10px;
   width: 85%;
   display: flex;
@@ -60,9 +60,13 @@ export default class BtnBox extends Vue {
   align-items: center;
   background: #ffffff;
   box-shadow: 0px 12px 14px rgba(209, 212, 226, 0.4);
+
   .box-contnet {
     height: 12rem;
     overflow: scroll;
+    @media screen and(min-width: 320px) and(max-width: 360px) {
+      height: 10rem;
+    }
     @media screen and(min-width: 360px) and(max-width: 374px) {
       height: 15rem;
     }
