@@ -6,6 +6,7 @@
         <router-link to="/" class="cancel-color">取消</router-link>
       </template>
     </top-nav>
+    <calendar :value.sync="record.createdAt" />
     <btn-box @Boxupdate-value="OnBoxUpdate" @Typeupdate-value="OnTypeUpdate" />
     <numbers @submit="saveRecord">
       <notes @noteupdate-value="OnNoteUpdate"></notes>
@@ -17,12 +18,12 @@
 import BtnBox from '@/components/Money/BtnBox.vue'
 import Numbers from '@/components/Money/Numbers.vue'
 import Notes from '@/components/Money/Notes.vue'
-// import store from '@/store/index2'
+import Calendar from '@/components/Calendar.vue'
+import dayjs from 'dayjs'
 import Vue from 'vue'
-import { Message } from 'element-ui'
 import { Component } from 'vue-property-decorator'
 @Component({
-  components: { BtnBox, Numbers, Notes }
+  components: { BtnBox, Numbers, Notes, Calendar }
 })
 export default class Money extends Vue {
   // eslint-disable-next-line no-undef
@@ -31,7 +32,8 @@ export default class Money extends Vue {
     tags: {},
     notes: '',
     type: '-',
-    amount: 0
+    amount: 0,
+    createdAt: dayjs(new Date()).format('YYYY-MM-DD')
   }
   // eslint-disable-next-line no-undef
   OnBoxUpdate(value: icon): void {
