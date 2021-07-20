@@ -26,7 +26,7 @@ const store = new Vuex.Store({
         Message.error({ message: '金额不能为0', center: true, duration: 1000, customClass: '.tips' })
       } else {
         record2.id = createId()
-        record2.createdAt = new Date().toISOString()
+        record2.createdAt = record.createdAt || new Date().toISOString()
         state.recordList.push(record2)
         store.commit('saveRecords')
         Message.success({ message: '添加成功!', center: true, duration: 1000, customClass: '.tips' })

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <noting-for-create v-if="recordList.length === 0"></noting-for-create>
+    <noting-for-create v-if="!list"></noting-for-create>
     <ol class="show-flex" v-else>
-      <li class="show-content" v-for="(group, index) in groupedList" :key="index">
+      <li class="show-content" v-for="(group, index) in list" :key="index">
         <div class="amount">
-          <span class="date">{{ beautify(groupedList[index].title) + '' }}</span>
+          <span class="date">{{ beautify(list[index].title) + '' }}</span>
           <div class="amount-number">
             <span>{{ '+' + inSumAndOutSum(index, '+') }}</span>
             <span>{{ '-' + inSumAndOutSum(index, '-') }}</span>
@@ -28,17 +28,22 @@
 <script lang='ts'>
 import Vue from 'vue'
 import dayjs from 'dayjs'
-import { Component } from 'vue-property-decorator'
+import { Component, Prop } from 'vue-property-decorator'
 import clone from '@/lib/clone'
 import NotingForCreate from '@/components/Home/NotingForCreate.vue'
 @Component({
   components: { NotingForCreate }
 })
 export default class Types extends Vue {
+  @Prop(String) select!: string
+  get list() {
+    return this.groupYearMounth[this.select]
+  }
   // eslint-disable-next-line no-undef
   get recordList(): RecordItem[] {
     return (this.$store.state as RootState).recordList
   }
+
   beforeCreate(): void {
     this.$store.commit('fetchRecords')
   }
@@ -62,8 +67,34 @@ export default class Types extends Vue {
     }
     return result
   }
+  get groupYearMounth() {
+    /* {
+      yearmounth:[{title , items[]}]
+      yearmounth:[{title , items[]}]
+      }*/
+    const groupList = clone(this.groupedList)
+    const headYearMounth = dayjs(groupList[0].title).format('YYYY-MM')
+    const resultYearMounth = {
+      [headYearMounth]: groupList.filter((a) => {
+        return dayjs(a.title).format('YYYY-MM') === headYearMounth
+      })
+    }
+    for (let i = 1; i < groupList.length; i++) {
+      const current = groupList[i]
+      const kyes = Object.keys(resultYearMounth)
+      const lastItem = kyes[kyes.length - 1]
+      if (dayjs(current.title).format('YYYY-MM') === lastItem) {
+        resultYearMounth[lastItem].push(current)
+      } else {
+        const newItem = dayjs(current.title).format('YYYY-MM')
+        resultYearMounth[newItem] = []
+        resultYearMounth[newItem].push(current)
+      }
+    }
+    return resultYearMounth
+  }
   inSumAndOutSum(index: number, type: string): number {
-    const items = this.groupedList[index].items
+    const items = this.list[index].items
     const SumList = items.filter((a) => a.amount && a.type === type)
     const Sum: number = eval(SumList.map((a) => a.amount).join('+'))
     return Sum || 0
@@ -82,7 +113,7 @@ export default class Types extends Vue {
     } else if (day.isSame(now, 'year')) {
       return day.format('M月D日 ') + WeekDay
     } else {
-      return day.format('YYYY年M月D日 ') + WeekDay
+      return day.format('YYYY/M/D ') + WeekDay
     }
   }
 }
