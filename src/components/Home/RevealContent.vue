@@ -37,6 +37,7 @@ import NotingForCreate from '@/components/Home/NotingForCreate.vue'
 export default class Types extends Vue {
   @Prop(String) select!: string
   get list() {
+    this.$emit('update:list', this.groupYearMounth[this.select])
     return this.groupYearMounth[this.select]
   }
   // eslint-disable-next-line no-undef
