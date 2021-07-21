@@ -4,9 +4,10 @@
       <el-date-picker
         v-model="value1"
         type="date"
-        size="mini"
+        size="small"
         placeholder="选择日期"
         value-format="yyyy-MM-dd"
+        :clearable="false"
         @change="emitDate(value1)"
         class="date"
       >
