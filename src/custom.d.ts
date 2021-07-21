@@ -17,9 +17,14 @@ type RootState = {
   groupedList?: GroupedList
   showList?: YearMounthList
 }
+type group = {
+  [key: string]: any
+}
 type GroupedList = {
   title: string
   items: RecordItem[]
+  intotal?: any
+  outtotal?: any
 }[]
 type YearMounthList = {
   [key: string]: GroupedList

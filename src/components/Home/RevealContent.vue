@@ -6,8 +6,8 @@
         <div class="amount">
           <span class="date">{{ beautify(list[index].title) + '' }}</span>
           <div class="amount-number">
-            <span>{{ '+' + inSumAndOutSum(index, '+') }}</span>
-            <span>{{ '-' + inSumAndOutSum(index, '-') }}</span>
+            <span>{{ '+' + list[index].intotal }}</span>
+            <span>{{ '-' + list[index].outtotal }}</span>
           </div>
         </div>
         <ol class="item-content">
@@ -47,7 +47,7 @@ export default class RevealContent extends Vue {
   beforeCreate(): void {
     this.$store.commit('fetchRecords')
   }
-  get groupedList() {
+  get groupedList(): GroupedList {
     const ListClone = clone(this.recordList)
     const newList = ListClone.sort((a, b) => {
       return dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf()
@@ -55,7 +55,7 @@ export default class RevealContent extends Vue {
     if (newList.length === 0) {
       return []
     }
-    const result = [{ title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]] }]
+    const result = [{ title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]] }] as GroupedList
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i]
       const last = result[result.length - 1]
@@ -65,12 +65,25 @@ export default class RevealContent extends Vue {
         result.push({ title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current] })
       }
     }
+    result.map((group) => {
+      // // eslint-disable-next-line no-undef
+      const inList: RecordItem[] = group.items.filter((a) => {
+        return a.type === '+'
+      })
+      group.intotal = inList.reduce((sum: number, item: any) => {
+        return sum + Number(item.amount)
+      }, 0)
+      const outList: RecordItem[] = group.items.filter((a) => {
+        return a.type === '-'
+      })
+      group.outtotal = outList.reduce((sum: number, item: any) => {
+        return sum + Number(item.amount)
+      }, 0)
+    })
     return result
   }
+
   get groupYearMounth(): any {
-    type group = {
-      [key: string]: any
-    }
     let result = {} as group
     const groupList = clone(this.groupedList)
     if (groupList.length === 0) {
@@ -85,12 +98,6 @@ export default class RevealContent extends Vue {
     return result
   }
 
-  inSumAndOutSum(index: number, type: string): number {
-    const items = this.list[index].items
-    const SumList = items.filter((a: any) => a.amount && a.type === type)
-    const Sum: number = eval(SumList.map((a: any) => a.amount).join('+'))
-    return Sum || 0
-  }
   beautify(string: string): string {
     const ChineseDay = ['日', '一', '二', '三', '四', '五', '六']
     const day = dayjs(string)
@@ -103,7 +110,7 @@ export default class RevealContent extends Vue {
     } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
       return '前天 ' + WeekDay
     } else if (day.isSame(now, 'year')) {
-      return day.format('M月D日 ') + WeekDay
+      return day.format('M.D ') + WeekDay
     } else {
       return day.format('YYYY/M/D ') + WeekDay
     }
