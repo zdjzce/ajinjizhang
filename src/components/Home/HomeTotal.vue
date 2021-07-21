@@ -1,7 +1,7 @@
 <template>
   <div class="total-box">
     <main class="box">
-      <div class="block selecdate">
+      <!-- <div class="block selecdate">
         <el-date-picker
           v-model="value1"
           type="month"
@@ -12,7 +12,8 @@
           @change="emitDate(value1)"
         >
         </el-date-picker>
-      </div>
+      </div> -->
+      <pick-date :value.sync="selectYearMounth"></pick-date>
       <div class="total-inout">
         <div class="inandout">
           <span>总收入</span>
@@ -29,16 +30,24 @@
 
 <script lang='ts'>
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Watch } from 'vue-property-decorator'
+import PickDate from '@/components/Statistics/PickDate.vue'
 import dayjs from 'dayjs'
-@Component
-export default class Types extends Vue {
-  @Prop(String) value!: string
+@Component({
+  components: { PickDate }
+})
+export default class HomeTotal extends Vue {
+  // @Prop(String) value!: string
   @Prop(Array) list!: any
-  value1 = dayjs(this.value).format('YYYY-MM')
-  emitDate(value: string): void {
-    this.$emit('update:value', this.value1)
+  selectYearMounth = dayjs(new Date()).format('YYYY-MM')
+  @Watch('selectYearMounth')
+  updateYearMounth() {
+    this.$emit('update:value', this.selectYearMounth)
   }
+  // value1 = dayjs(this.value).format('YYYY-MM')
+  // emitDate(value: string): void {
+  //   this.$emit('update:value', this.value1)
+  // }
   inSumAndOutSum(type: string): number {
     let count = 0
     if (!this.list) {

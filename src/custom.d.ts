@@ -14,6 +14,15 @@ type RecordItem = {
 type RootState = {
   recordList: RecordItem[]
   tagList: icon[]
+  groupedList?: GroupedList
+  showList?: YearMounthList
+}
+type GroupedList = {
+  title: string
+  items: RecordItem[]
+}[]
+type YearMounthList = {
+  [key: string]: GroupedList
 }
 
 type IconListModel = {

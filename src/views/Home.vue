@@ -4,7 +4,8 @@
       <span>概览</span>
     </top-nav>
     <lay-out>
-      <home-total :value.sync="selectYearMounth" :list="list" />
+      <!-- <home-total :value.sync="selectYearMounth" :list="list" /> -->
+      <home-total :list="list" @update:value="updateYearMounth" />
       <reveal-content :select="selectYearMounth" @update:list="getList" />
     </lay-out>
   </div>
@@ -25,8 +26,11 @@ export default class Home extends Vue {
   get list() {
     return this.MounthYearList
   }
-  getList(value: any) {
+  getList(value: any): void {
     this.MounthYearList = value
+  }
+  updateYearMounth(value: string): void {
+    this.selectYearMounth = value
   }
 }
 </script>

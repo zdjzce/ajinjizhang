@@ -34,7 +34,7 @@ import NotingForCreate from '@/components/Home/NotingForCreate.vue'
 @Component({
   components: { NotingForCreate }
 })
-export default class Types extends Vue {
+export default class RevealContent extends Vue {
   @Prop(String) select!: string
   get list() {
     this.$emit('update:list', this.groupYearMounth[this.select])
