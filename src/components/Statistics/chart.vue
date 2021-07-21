@@ -29,19 +29,13 @@ export default class Echars extends Vue {
       },
       //工具栏。内置有导出图片，数据视图，动态类型切换，数据区域缩放，重置五个工具。
       toolbox: {
+        itemSize: 18,
+        itemGap: 15,
+        right: 14,
         feature: {
           // 动态类型切换,切换图表
           magicType: {
             type: ['line']
-          },
-          //数据视图工具，可以展现当前图表所用的数据，编辑后可以动态更新。
-          // dataView: {
-          //   show: true, //是否显示 数据示图
-          //   readOnly: false //是否 直接可以编辑数据。
-          // },
-          //保存为图片的配置
-          saveAsImage: {
-            show: true
           },
           //配置项还原
           restore: { show: true }
@@ -52,7 +46,7 @@ export default class Echars extends Vue {
         data: ['收入', '支出'] //对应的是name
       },
       grid: {
-        left: '15%', //设置canvas图距左的距离
+        left: '10%', //设置canvas图距左的距离
         top: '15%'
       },
       //配置X轴
@@ -147,7 +141,7 @@ export default class Echars extends Vue {
   width: 100vw;
   .echart {
     width: 100vw;
-    height: 50vh;
+    height: 55vh;
   }
 }
 </style>
