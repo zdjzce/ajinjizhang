@@ -15,19 +15,20 @@
         <span>日期</span>
         <calendar :value.sync="creatDate" class="date"></calendar>
       </div>
-      <div><span>金额</span><input type="text" placeholder="修改金额" v-model="amount" /></div>
+      <div><span>金额</span><input type="text" placeholder="请输入数字" :value="inpNum" @input="change" /></div>
       <div><span>备注</span><input type="text" placeholder="修改备注" v-model="notes" /></div>
       <div class="button">
         <button @click="saveRecord">完成</button>
         <button class="remove" @click="removeRecord">删除</button>
       </div>
     </div>
+    <div>{{ amount }}</div>
   </div>
 </template>
 
 <script lang='ts'>
 import Vue from 'vue'
-import { Component } from 'vue-property-decorator'
+import { Component, Watch } from 'vue-property-decorator'
 import Calendar from '@/components/Money/Calendar.vue'
 import clone from '@/lib/clone'
 import dayjs from 'dayjs'
@@ -41,6 +42,9 @@ export default class Types extends Vue {
   notes = null
   amount = null
   id = this.$route.params.id
+  get inpNum() {
+    return this.amount
+  }
   saveRecord() {
     let CloneTag = clone(this.tagitem)
     CloneTag = { ...CloneTag, createdAt: this.creatDate, notes: this.notes, amount: this.amount }
@@ -49,8 +53,12 @@ export default class Types extends Vue {
         this.$store.state.recordList.splice(index, 1, CloneTag)
       }
     })
-    Message.success({ message: '修改成功!', center: true, duration: 1000, customClass: '.tips' })
-    this.$store.commit('saveRecords')
+    if (this.amount === '' || Number(this.amount) === 0) {
+      Message.error({ message: '金额不能为空或0!', center: true, duration: 1000, customClass: '.tips' })
+    } else {
+      Message.success({ message: '修改成功!', center: true, duration: 1000, customClass: '.tips' })
+      this.$store.commit('saveRecords')
+    }
   }
   removeRecord() {
     this.$store.state.recordList.forEach((item: any, index: any) => {
@@ -73,6 +81,14 @@ export default class Types extends Vue {
     this.creatDate = tagitem.createdAt
     this.notes = tagitem.notes
     this.amount = tagitem.amount
+  }
+  change(event: any) {
+    let val = event.target.value.trim()
+    if (/^[1-9]{0,6}\d$|^$/.test(val)) {
+      this.amount = val
+    } else {
+      event.target.value = this.amount
+    }
   }
 }
 </script>
