@@ -10,16 +10,16 @@
             <span>{{ '-' + list[index].outtotal }}</span>
           </div>
         </div>
-        <ol class="item-content">
-          <li class="item" v-for="item in group.items" :key="item.id">
+        <div class="item-content">
+          <router-link class="item" v-for="item in group.items" :key="item.id" :to="`/home/edit/${item.id}`">
             <icon-font :icon="item.tags.icon" class="icon"></icon-font>
             <div class="name-note">
               <span>{{ item.tags.name }}</span>
               <span class="note">{{ item.notes }}</span>
             </div>
             <span class="price">{{ item.type + item.amount }}</span>
-          </li>
-        </ol>
+          </router-link>
+        </div>
       </li>
     </ol>
   </div>

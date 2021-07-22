@@ -5,6 +5,7 @@ import Money from '../views/Money.vue'
 import Statistics from '../views/Statistics.vue'
 import NotFound from '../views/NotFound.vue'
 import Additems from '../views/Additems.vue'
+import EditLabel from '../views/EditLabel.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '/additem',
     component: Additems
+  },
+  {
+    path: '/home/edit/:id',
+    component: EditLabel
   },
   {
     path: '*',
