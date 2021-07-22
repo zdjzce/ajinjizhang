@@ -33,7 +33,7 @@ export default class Numbers extends Vue {
   inputContent(event: MouseEvent): void {
     const button = event.target as HTMLButtonElement
     const input = button.textContent!
-    if (this.output.length === 16) {
+    if (this.output.length === 6) {
       return
     }
     if (this.output === '0') {
