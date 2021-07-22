@@ -32,6 +32,7 @@ export default class PickDate extends Vue {
 .total-box {
   width: 90vw;
   margin: 0 auto;
+
   .selecdate {
     display: flex;
     justify-content: center;

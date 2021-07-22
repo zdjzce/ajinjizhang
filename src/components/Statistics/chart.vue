@@ -24,17 +24,21 @@ export default class Echars extends Vue {
     // }
   }
   @Watch('options')
-  onOptionsChange(newvalue: any) {
+  onOptionsChange(newvalue: any): void {
     this.myChart.setOption(newvalue)
   }
 }
 </script>
 <style lang='scss' scoped>
 .echart-f {
+  // font-size: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
+  background: white;
+  border-radius: 0.666667rem;
+  box-shadow: 0px -1rem 1rem 0px rgb(209 212 226 / 20%);
   .echart {
     width: 100vw;
     height: 55vh;

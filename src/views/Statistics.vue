@@ -4,8 +4,9 @@
       <span>记账</span>
     </top-nav>
     <lay-out>
-      <pick-date :value.sync="selectYearMounth" />
+      <pick-date :value.sync="selectYearMounth" class="date-content" />
       <chart :options="options"></chart>
+      <sort-in-come :selectYearMounth="selectYearMounth" :recordList="recordList" />
     </lay-out>
   </div>
 </template>
@@ -15,11 +16,12 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import groupList from '@/store/groupList'
 import PickDate from '@/components/PickDate.vue'
-import Chart from '@/components/Statistics/chart.vue'
+import Chart from '@/components/Statistics/Chart.vue'
+import SortInCome from '@/components/Statistics/SortInCome.vue'
 import dayjs from 'dayjs'
 import _ from 'lodash'
 @Component({
-  components: { PickDate, Chart }
+  components: { PickDate, Chart, SortInCome }
 })
 export default class Statistics extends Vue {
   recordList = {} as RecordItem[]
@@ -108,8 +110,16 @@ export default class Statistics extends Vue {
       },
       yAxis: [
         {
+          // show: false,
           type: 'value',
-          name: '金额'
+          name: '金额',
+          axisLabel: {
+            formatter: '{value}',
+            textStyle: {
+              fontSize: 8
+            }
+          },
+          scale: true
         }
       ],
       //系列列表。
@@ -134,4 +144,8 @@ export default class Statistics extends Vue {
 }
 </script>
 <style lang='scss' scoped>
+.date-content {
+  background: white;
+  // width: 100vw;
+}
 </style>
