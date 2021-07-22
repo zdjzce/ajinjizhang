@@ -22,7 +22,6 @@
         <button class="remove" @click="removeRecord">删除</button>
       </div>
     </div>
-    <div>{{ amount }}</div>
   </div>
 </template>
 
@@ -58,6 +57,7 @@ export default class Types extends Vue {
     } else {
       Message.success({ message: '修改成功!', center: true, duration: 1000, customClass: '.tips' })
       this.$store.commit('saveRecords')
+      this.$router.push('/')
     }
   }
   removeRecord() {
