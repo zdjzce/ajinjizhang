@@ -32,6 +32,7 @@ export default class Numbers extends Vue {
   output = this.value.toString()
   inputContent(event: MouseEvent): void {
     const button = event.target as HTMLButtonElement
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const input = button.textContent!
     if (this.output.length === 6) {
       return

@@ -9,8 +9,8 @@ const iconArray: icon[] = [
   { name: '健身', icon: 'run', color: 'jianshen' },
   { name: '蔬菜', icon: 'shucai', color: 'huafei' },
   { name: '娱乐', icon: 'yule', color: 'gouwu' },
-  { name: '其他', icon: 'qitashouru', color: 'jiaotong' },
-  { name: '添加', icon: 'tianjia' }
+  { name: '其他', icon: 'qitashouru', color: 'jiaotong' }
+  // { name: '添加', icon: 'tianjia' }
 ]
 
 export default iconArray

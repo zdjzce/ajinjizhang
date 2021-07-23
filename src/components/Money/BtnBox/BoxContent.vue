@@ -8,17 +8,11 @@
         :key="index"
         @click="addClass(index)"
         :class="{ iconclick: selected.name === item.name }"
-        v-if="item.icon != 'tianjia'"
       >
         <icon-font :icon="item.icon" :class="item.color" />
         <span>{{ item.name }}</span>
       </li>
-      <router-link class="items" to="/additem">
-        <li v-for="(item1, key) in iconArray" :key="key + '1'" v-if="item1.icon === 'tianjia'">
-          <icon-font :icon="item1.icon" />
-          <span> {{ item1.name }}</span>
-        </li>
-      </router-link>
+      <slot />
     </ul>
   </div>
 </template>

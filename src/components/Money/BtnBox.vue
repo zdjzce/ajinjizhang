@@ -7,7 +7,12 @@
         v-if="btnselected === '-'"
         @update:value="onUpdateTags"
         :btnselected="btnselected"
-      ></box-content>
+      >
+        <router-link class="items" to="/additem">
+          <icon-font icon="tianjia" />
+          <span>添加</span>
+        </router-link>
+      </box-content>
       <box-content
         :iconArray="iconArray2"
         v-if="btnselected === '+'"
