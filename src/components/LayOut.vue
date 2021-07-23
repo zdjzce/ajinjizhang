@@ -36,4 +36,7 @@ export default {}
   overflow: auto;
   flex-grow: 1;
 }
+.layout-wrapper {
+  -webkit-overflow-scrolling: touch;
+}
 </style>
