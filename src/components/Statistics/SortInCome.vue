@@ -116,7 +116,7 @@ export default class SortInCome extends Vue {
           margin-left: 0.666667rem;
         }
         .name-note {
-          width: 60%;
+          width: 48%;
           margin-left: 0.8rem;
           span {
             display: block;
@@ -131,7 +131,7 @@ export default class SortInCome extends Vue {
           font-size: 0.933333rem;
           text-align: center;
           word-wrap: break-word;
-          width: 23%;
+          width: 35%;
         }
       }
     }
